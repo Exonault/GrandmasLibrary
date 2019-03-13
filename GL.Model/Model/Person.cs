@@ -2,19 +2,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GL.Model.Model
 {
-    public class Author:BaseEntity
+    public class Person:BaseEntity
     {
-        public Author(string firstName, string lastName)
+        public Person(string firstName, string lastName, int age)
         {
             FirstName = firstName;
             LastName = lastName;
+            Age = age;
         }
-        
+
         [Required]
         public string FirstName { get; set; }
         
         [Required]
         public string LastName { get; set; }
+
+        [Required]
+        public int Age { get; set; }
+        
         
         
     }

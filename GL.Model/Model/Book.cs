@@ -1,22 +1,11 @@
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace GL.Model.Model
 {
-    public class Book
+    public class Book : BaseEntity
     {
-
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-        
-        public Author Author { get; set; }
-        
-        public int AuthorId { get; set; }
-        
-        public int YearOfPublish { get; set; }
-        
-        public string Shelf { get; set; }
-        
-        public bool Status { get; set; }
-
         public Book(string name, Author author, int yearOfPublish, string shelf)
         {
             Name = name;
@@ -25,5 +14,21 @@ namespace GL.Model.Model
             Shelf = shelf;
             Status = true;
         }
+
+        [Required]
+        public string Name { get; set; } 
+        
+        [ForeignKey(nameof(Author))]
+        public int AuthorId { get; set; }
+        
+        public Author Author { get; set; }
+     
+        [Required]
+        public int YearOfPublish { get; set; }
+
+        [Required, StringLength(2,MinimumLength = 2)]
+        public string Shelf { get; set; }
+
+        public bool Status { get; set; }
     }
 }
