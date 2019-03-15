@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using GL.Model.Model.Contract;
 
 namespace GL.Model.Model
 {

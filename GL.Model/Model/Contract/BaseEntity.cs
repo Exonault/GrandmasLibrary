@@ -1,7 +1,6 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace GL.Model.Model
+namespace GL.Model.Model.Contract
 {
     public abstract class BaseEntity
     {

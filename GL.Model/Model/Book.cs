@@ -1,17 +1,17 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GL.Model.Model.Contract;
 
 namespace GL.Model.Model
 {
     public class Book : BaseEntity
     {
-        public Book(string name, Author author, int yearOfPublish, string shelf)
+        public Book(string name, Author author, int yearOfPublish)
         {
             Name = name;
             Author = author;
             YearOfPublish = yearOfPublish;
-            Shelf = shelf;
             Status = true;
         }
 
@@ -25,9 +25,6 @@ namespace GL.Model.Model
      
         [Required]
         public int YearOfPublish { get; set; }
-
-        [Required, StringLength(2,MinimumLength = 2)]
-        public string Shelf { get; set; }
 
         public bool Status { get; set; }
     }
