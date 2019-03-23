@@ -54,5 +54,6 @@ namespace GL.Services
             _context.Remove(author);
             _context.SaveChanges();
         }
+        
     }
 }
