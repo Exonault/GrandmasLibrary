@@ -20,7 +20,7 @@ namespace GL.Model.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(Connection.ConnectionString);
+         //   optionsBuilder.UseSqlServer(Connection.ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
