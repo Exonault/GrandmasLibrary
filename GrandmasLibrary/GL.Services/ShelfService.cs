@@ -7,14 +7,14 @@ namespace GL.Services
 {
     public class ShelfService
     {
-        private static LibraryContext _context;
+        private  LibraryContext _context;
 
         public ShelfService(LibraryContext context  )
         {
             _context = context;
         }
 
-        public static bool Exists(string name)
+        public  bool Exists(string name)
         {
             bool exist = false;
             
@@ -31,12 +31,12 @@ namespace GL.Services
             return exist;
         }
 
-        public static void AddBookToShelf(Book book, Shelf shelf)
+        public  void AddBookToShelf(Book book, Shelf shelf)
         {
             shelf.Books.Add(book);
         }
         
-        public static void AddShelf(string shelfName)
+        public  void AddShelf(string shelfName)
         {
             Shelf shelf=new Shelf();
             

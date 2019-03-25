@@ -6,14 +6,14 @@ namespace GL.Services
 {
     public class AuthorService
     {
-        private static LibraryContext _context;
+        private  LibraryContext _context;
 
         public AuthorService(LibraryContext context  )
         {
             _context = context;
         }
 
-        public static bool Exists(string fName, string lName)
+        public  bool Exists(string fName, string lName)
         {
             bool exist = false;
             
@@ -31,13 +31,13 @@ namespace GL.Services
             return exist;
         }
 
-        public static void AddBookToAuthor(Book book, Author author)
+        public  void AddBookToAuthor(Book book, Author author)
         {
             author.Books.Add(book);
             
         }
         
-        public static void AddAuthor(string fNAme, string lName)
+        public  void AddAuthor(string fNAme, string lName)
         {
             Author author=new Author();
             

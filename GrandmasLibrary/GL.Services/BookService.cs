@@ -1,18 +1,24 @@
-using System.Linq;
+
+
+
 using GL.Model.Context;
 using GL.Model.Model;
-using GL.Services;
 
-
-namespace DefaultNamespace
+namespace GL.Services
 {
     public class BookService
     {
-        private static LibraryContext _context;
+        private  LibraryContext _context;
+        private AuthorService _authorService;
+        private ShelfService _shelfService;
+        private PersonService _personService;
 
         public BookService(LibraryContext context  )
         {
             _context = context;
+            _authorService = new AuthorService(_context);
+            _shelfService=new ShelfService(_context);
+            _personService=new PersonService(_context);
         }
 
         public void AddBook(string title, string shelfName, string authorfName, string authorlName)
@@ -28,19 +34,19 @@ namespace DefaultNamespace
             Shelf shelf=new Shelf();
             shelf.ShelfName = shelfName;
 
-            if (!AuthorService.Exists(authorfName, authorlName))
+            if (!_authorService.Exists(authorfName, authorlName))
             {
-                AuthorService.AddAuthor(authorfName, authorlName);
+                _authorService.AddAuthor(authorfName, authorlName);
             }
 
-            AuthorService.AddBookToAuthor(book, author);
+            _authorService.AddBookToAuthor(book, author);
 
-            if (!ShelfService.Exists(shelfName))
+            if (!_shelfService.Exists(shelfName))
             {
-                ShelfService.AddShelf(shelfName);
+                _shelfService.AddShelf(shelfName);
             }
 
-            ShelfService.AddBookToShelf(book, shelf);
+            _shelfService.AddBookToShelf(book, shelf);
 
             _context.Books.Add(book);
         }

@@ -6,7 +6,7 @@ namespace GL.Services
 {
     public class PersonService
     {
-        private readonly LibraryContext _context;
+        private  LibraryContext _context;
 
         public PersonService(LibraryContext context  )
         {
