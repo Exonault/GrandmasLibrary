@@ -6,7 +6,7 @@ namespace GL.Model.Model
     public class Book:BaseEntity
     {
         [Required]
-        public string Title { get; set; }
+        public string Title { get; set; } 
         public bool IsTaken { get; set; }
 
         public Shelf Shelf { get; set; }

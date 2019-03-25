@@ -12,13 +12,33 @@ namespace GL.Services
         {
             _context = context;
         }
+        
+        public bool Exists(string fName, string lName, int age)
+        {
+            bool exist = false;
+            
+            var people = _context.Persons.Select(c => $"{c.LastName},{c.FirstName} {c.Age}").ToList();
+            string name = $"{lName},{fName} {age}";
 
+            foreach (var person in people)
+            {
+                if (person == name)
+                {
+                    exist = true;
+                }
+            }
+            
+            return exist;
+        }
+        
         public void AddPerson(string fName, string lName, int age)
         {
             Person person= new Person();
+            
             person.FirstName = fName;
             person.LastName = lName;
             person.Age = age;
+            
             _context.Persons.Add(person);
             _context.SaveChanges();
         }
@@ -27,10 +47,12 @@ namespace GL.Services
         {
             string allPeople = "Allow to this library are: \n";
             var people = _context.Persons.Select(c => $"{c.LastName}, {c.FirstName} {c.Age}y.o.").ToList();
+            
             foreach (var person in people)
             {
                 allPeople += person + "\n";
             }
+            
             return allPeople;
         }
         
@@ -39,8 +61,10 @@ namespace GL.Services
             Person person = _context.Persons
                 .Where(c => c.FirstName == currentFName)
                 .First(c => c.LastName == currentLName);
+            
             person.FirstName = newFName;
             person.LastName = newLName;
+            
             _context.SaveChanges();
         }
 
@@ -49,7 +73,9 @@ namespace GL.Services
             Person person=_context.Persons
                 .Where(c => c.FirstName == fName)
                 .First(c => c.LastName == lName);
+            
             person.Age += 1;
+            
             _context.SaveChanges();
             
         }
@@ -59,6 +85,7 @@ namespace GL.Services
             Person person=_context.Persons
                 .Where(c => c.FirstName == fName)
                 .First(c => c.LastName == lName);
+            
             _context.Persons.Remove(person);
             _context.SaveChanges();
         }

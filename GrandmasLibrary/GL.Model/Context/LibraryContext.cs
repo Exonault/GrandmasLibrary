@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 namespace GL.Model.Context
 {
     public class LibraryContext:DbContext
-    {
+    {        
+
         public LibraryContext()
         {     
         }
@@ -17,6 +18,7 @@ namespace GL.Model.Context
         public DbSet<Shelf> Shelves { get; set; }
         public DbSet<Person> Persons { get; set; }
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
