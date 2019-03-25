@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Text;
 using GL.Model.Context;
 using GL.Model.Model;
 
@@ -34,7 +35,8 @@ namespace GL.Services
         public  void AddBookToAuthor(Book book, Author author)
         {
             author.Books.Add(book);
-            
+            _context.SaveChanges();
+
         }
         
         public  void AddAuthor(string fNAme, string lName)
@@ -50,16 +52,16 @@ namespace GL.Services
 
         public string ViewAllAuthors()
         {
-            string allAutors = "Library has the following authors: \n";
+            StringBuilder allAutors = new StringBuilder("Library has the following authors: \n");
             
             var authors = _context.Authors.Select(c => $"{c.LastName}, {c.FirstName}").ToList();
 
             foreach (var author in authors)
             {
-                allAutors += author + "\n";
+                allAutors.Append(author + "\n") ;
             }
 
-            return allAutors;
+            return allAutors.ToString();
         }
 
         public void ChangeAuthorName(string currentFName,string currentLName, string newFName, string newLName)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using GL.Model.Context;
 using GL.Model.Model;
 
@@ -34,6 +35,7 @@ namespace GL.Services
         public  void AddBookToShelf(Book book, Shelf shelf)
         {
             shelf.Books.Add(book);
+            _context.SaveChanges();
         }
         
         public  void AddShelf(string shelfName)
@@ -57,14 +59,14 @@ namespace GL.Services
         public string ViewShelves()
         {
             var shelves = _context.Shelves.Select(c => c.ShelfName).ToList();
-            string allShelves = "Library have the following shelfs: \n";
+            StringBuilder allShelves = new StringBuilder("Library have the following shelfs: \n");
             
             foreach (var shelf in shelves)
             {
-                allShelves += shelf + "\n";
+                allShelves.Append(shelf + "\n");
             }
 
-            return allShelves;
+            return allShelves.ToString();
         }
        
         public void ChangeName(string currentName, string newName)

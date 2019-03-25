@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Text;
 using GL.Model.Context;
 using GL.Model.Model;
 
@@ -45,15 +46,15 @@ namespace GL.Services
 
         public string ViewAllPeople()
         {
-            string allPeople = "Allow to this library are: \n";
+            StringBuilder allPeople = new StringBuilder("Allow to this library are: \n");
             var people = _context.Persons.Select(c => $"{c.LastName}, {c.FirstName} {c.Age}y.o.").ToList();
             
             foreach (var person in people)
             {
-                allPeople += person + "\n";
+                allPeople.Append(person + "\n");
             }
             
-            return allPeople;
+            return allPeople.ToString();
         }
         
         public void ChangePersonName(string currentFName,string currentLName, string newFName, string newLName)

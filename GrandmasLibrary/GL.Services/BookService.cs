@@ -49,7 +49,9 @@ namespace GL.Services
             _shelfService.AddBookToShelf(book, shelf);
 
             _context.Books.Add(book);
+            _context.SaveChanges();
         }
+        
         
     }
 }
