@@ -64,6 +64,12 @@ namespace GL.Services
             return allAutors.ToString();
         }
 
+        public Author GetAuthor(string fName, string lName)
+        {
+            return _context.Authors
+                .Where(c => c.FirstName == fName)
+                .First(c => c.LastName == lName);
+        }
         public void ChangeAuthorName(string currentFName,string currentLName, string newFName, string newLName)
         {
             Author author = _context.Authors

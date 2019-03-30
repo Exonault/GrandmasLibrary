@@ -35,6 +35,14 @@ namespace GL.Services
         public  void AddBookToShelf(Book book, Shelf shelf)
         {
             shelf.Books.Add(book);
+            _context.Shelves.Update(shelf);
+            _context.SaveChanges();
+        }
+
+        public void RemoveBookFromShelf(Book book, Shelf shelf)
+        {
+            shelf.Books.Remove(book);
+            _context.Shelves.Update(shelf);
             _context.SaveChanges();
         }
         
@@ -67,6 +75,11 @@ namespace GL.Services
             }
 
             return allShelves.ToString();
+        }
+
+        public Shelf GetShelf(string shelfName)
+        {
+            return _context.Shelves.Find(shelfName);
         }
        
         public void ChangeName(string currentName, string newName)

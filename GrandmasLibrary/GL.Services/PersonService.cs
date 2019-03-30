@@ -56,12 +56,17 @@ namespace GL.Services
             
             return allPeople.ToString();
         }
+
+        public Person GetPerson(string fName, string lName)
+        {
+            return  _context.Persons
+                .Where(c => c.FirstName == fName)
+                .First(c => c.LastName == lName);
+        }
         
         public void ChangePersonName(string currentFName,string currentLName, string newFName, string newLName)
         {
-            Person person = _context.Persons
-                .Where(c => c.FirstName == currentFName)
-                .First(c => c.LastName == currentLName);
+            Person person = GetPerson(currentFName, currentLName);
             
             person.FirstName = newFName;
             person.LastName = newLName;
@@ -71,9 +76,7 @@ namespace GL.Services
 
         public void Birthday(string fName, string lName)
         {
-            Person person=_context.Persons
-                .Where(c => c.FirstName == fName)
-                .First(c => c.LastName == lName);
+            Person person = GetPerson(fName, lName);
             
             person.Age += 1;
             
@@ -83,14 +86,33 @@ namespace GL.Services
 
         public void RemovePerson(string fName, string lName)
         {
-            Person person=_context.Persons
-                .Where(c => c.FirstName == fName)
-                .First(c => c.LastName == lName);
+            Person person=GetPerson(fName,lName)
             
             _context.Persons.Remove(person);
             _context.SaveChanges();
         }
-        
+
+        public void AddBooksToPersonList(Book book, Person person)
+        {
+            person.Books.Add(book);
+            _context.Persons.Update(person);
+            _context.SaveChanges();
+        }
+
+        public string ViewAllPersonBooks(string fName, string lName)
+        {
+            Person person = GetPerson(fName, lName);
+            var books = person.Books.ToList();
+            StringBuilder allPerosonBooks=new StringBuilder("That person have there books (once upon a time): \n");
+
+            foreach (var book in books)
+            {
+                allPerosonBooks.Append(
+                    $"{book.Title} from {book.Author.FirstName} {book.Author.LastName} on shelf {book.Shelf.ShelfName}\n");
+            }
+
+            return allPerosonBooks.ToString();
+        }
         
     }
 }

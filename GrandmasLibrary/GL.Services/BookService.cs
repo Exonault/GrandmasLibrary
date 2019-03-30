@@ -1,8 +1,7 @@
-
-
-
 using GL.Model.Context;
 using GL.Model.Model;
+using  System.Linq;
+using System.Text;
 
 namespace GL.Services
 {
@@ -19,6 +18,13 @@ namespace GL.Services
             _authorService = new AuthorService(_context);
             _shelfService=new ShelfService(_context);
             _personService=new PersonService(_context);
+        }
+
+        public Book GetBook(string title, Author author)
+        {
+            return _context.Books
+                .Where(c => c.Title == title)
+                .First(c => c.Author == author);
         }
 
         public void AddBook(string title, string shelfName, string authorfName, string authorlName)
@@ -51,7 +57,74 @@ namespace GL.Services
             _context.Books.Add(book);
             _context.SaveChanges();
         }
-        
-        
+
+        public void RemoveBook(string title, string authorfName, string authorlName)
+        {
+            Author author = _authorService.GetAuthor(authorfName, authorlName);
+
+            Book book = GetBook(title, author);
+            Shelf shelf = book.Shelf;
+            _context.Remove(book);
+            _shelfService.RemoveBookFromShelf(book,shelf);
+            _context.SaveChanges();
+        }
+
+        public string ViewAllBooks()
+        {
+            var books=_context.Books
+                .Select(c => $"{c.Title}, {c.Author.FirstName} {c.Author.LastName} ({c.Shelf.ShelfName})")
+                .ToList();
+            StringBuilder allBook=new StringBuilder("Library have the following books: \n");
+            
+            foreach (var book in books)
+            {
+                allBook.Append(book + "\n");
+            }
+            
+            return allBook.ToString();
+        }
+
+        public void ChangeShelf(string title, string authorfName, string authorlName, string newShelf)
+        {
+            Author author = _authorService.GetAuthor(authorfName, authorlName);
+
+            Book book = GetBook(title, author);
+
+            Shelf shelf = book.Shelf;
+            Shelf newShelfForTheBook = _shelfService.GetShelf(newShelf);
+            
+            _shelfService.RemoveBookFromShelf(book, shelf);
+            _shelfService.AddBookToShelf(book,newShelfForTheBook);
+            book.Shelf.ShelfName = newShelf;
+            _context.Books.Update(book);
+            _context.SaveChanges();
+        }
+
+        public void PersonGetsBook(string title, string authorfName, string authorlName, string personfName,
+            string personlName)
+        {
+            Author author = _authorService.GetAuthor(authorfName, authorlName);
+            Book book = GetBook(title, author);
+            Person person = _personService.GetPerson(personfName, personlName);
+
+            book.IsTaken = true;
+            book.Person = person;
+            _personService.AddBooksToPersonList(book,person);
+
+            _context.Books.Update(book);
+            _context.SaveChanges();
+        }
+
+        public void PersonReturnsBook(string title, string authorfName, string authorlName)
+        {
+            Author author = _authorService.GetAuthor(authorfName, authorlName);
+            Book book = GetBook(title, author);
+            
+            book.IsTaken = false;
+            book.Person = null;
+            
+            _context.Books.Update(book);
+            _context.SaveChanges();
+        }
     }
 }
