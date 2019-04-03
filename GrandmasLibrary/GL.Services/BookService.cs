@@ -126,5 +126,12 @@ namespace GL.Services
             _context.Books.Update(book);
             _context.SaveChanges();
         }
+        
+        public string GetBookShelf(string title, string authorfName, string authorlName)
+        {
+             Author author = _authorService.GetAuthor(authorfName, authorlName);
+             Book book = GetBook(title, author);
+             return book.Shelf.ShelfName;
+        }
     }
 }

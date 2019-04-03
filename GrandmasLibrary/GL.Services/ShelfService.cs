@@ -45,6 +45,21 @@ namespace GL.Services
             _context.Shelves.Update(shelf);
             _context.SaveChanges();
         }
+
+        public string ViewAllBooksOnShelf(string shelfName)
+        {
+            Shelf shelf = GetShelf(shelfName);
+            var books = shelf.Books.ToList();
+            StringBuilder allBooks = new StringBuilder("This shelf have the following books: \n");
+            
+            foreach (var book in books)
+            {
+                allBooks.Append($"{book.Title}, {book.Author.FirstName} {book.Author.LastName}"+ "\n");
+            }
+
+            return allBooks.ToString();
+             
+        }
         
         public  void AddShelf(string shelfName)
         {
