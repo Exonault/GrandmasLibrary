@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.Model", "GL.Model\GL.Mod
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.Services", "GL.Services\GL.Services.csproj", "{E3E0D593-92EA-4B52-8630-0088BB59F20B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GL.Design", "GL.Design\GL.Design.csproj", "{408C923D-C597-44A9-9C7B-E2CCF7266D7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{E3E0D593-92EA-4B52-8630-0088BB59F20B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3E0D593-92EA-4B52-8630-0088BB59F20B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3E0D593-92EA-4B52-8630-0088BB59F20B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{408C923D-C597-44A9-9C7B-E2CCF7266D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{408C923D-C597-44A9-9C7B-E2CCF7266D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{408C923D-C597-44A9-9C7B-E2CCF7266D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{408C923D-C597-44A9-9C7B-E2CCF7266D7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

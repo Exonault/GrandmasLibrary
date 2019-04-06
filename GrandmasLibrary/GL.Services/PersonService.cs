@@ -86,7 +86,7 @@ namespace GL.Services
 
         public void RemovePerson(string fName, string lName)
         {
-            Person person=GetPerson(fName,lName)
+            Person person = GetPerson(fName, lName);
             
             _context.Persons.Remove(person);
             _context.SaveChanges();
