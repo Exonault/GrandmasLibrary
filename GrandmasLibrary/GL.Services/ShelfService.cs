@@ -17,19 +17,7 @@ namespace GL.Services
 
         public  bool Exists(string name)
         {
-            bool exist = false;
-            
-            var shelves = _context.Shelves.Select(c => c.ShelfName).ToList();
-
-            foreach (var shelf in shelves)
-            {
-                if (shelf == name)
-                {
-                    exist = true;
-                }
-            }
-            
-            return exist;
+            return _context.Shelves.Any(x => x.ShelfName == name);
         }
 
         public  void AddBookToShelf(Book book, Shelf shelf)
@@ -73,9 +61,7 @@ namespace GL.Services
         
         public void DeleteShelf( string shelfName)
         {
-            Shelf shelf = _context.Shelves.Find(shelfName);
-            
-            _context.Shelves.Remove(shelf);
+            _context.Shelves.Remove(GetShelf(shelfName));
             _context.SaveChanges();
         }
        
@@ -94,12 +80,12 @@ namespace GL.Services
 
         public Shelf GetShelf(string shelfName)
         {
-            return _context.Shelves.Find(shelfName);
+            return _context.Shelves.First(x=>x.ShelfName==shelfName);
         }
        
         public void ChangeName(string currentName, string newName)
         {
-            Shelf shelf = _context.Shelves.Find(currentName);
+            Shelf shelf = GetShelf(currentName);
             
             shelf.ShelfName = newName;
             _context.SaveChanges();

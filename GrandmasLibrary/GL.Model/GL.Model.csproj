@@ -11,4 +11,19 @@
       <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0-preview3.19128.7" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\20190318073626_Initial.cs" />
+      <Compile Remove="Migrations\20190318073626_Initial.Designer.cs" />
+      <Compile Remove="Migrations\LibraryContextModelSnapshot.cs" />
+      <Compile Remove="Migrations\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Migrations\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Migrations\**" />
+    </ItemGroup>
+
 </Project>

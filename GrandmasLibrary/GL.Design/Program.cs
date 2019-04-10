@@ -93,18 +93,7 @@ namespace GL.Design
                 case "8":
                     if (IsPersonLogIn())
                     {
-                        Console.Clear();
-                        Console.WriteLine(" Add a Book");
-                        Console.WriteLine(" --------------------------");
-                        Console.Write(" Please enter the book's title:");
-                        string newBookTitle = Console.ReadLine();
-                        Console.Write(" Please enter the book's author's FIRST name: ");
-                        string bookAuthorFirstName = Console.ReadLine();
-                        Console.Write(" Please enter the book's author's LAST name: ");
-                        string bookAuthorLastName = Console.ReadLine();
-                        Console.WriteLine("Please enter the book's shelf: ");
-                        string shelfName = Console.ReadLine();
-                        _bookService.AddBook(newBookTitle, shelfName, bookAuthorFirstName, bookAuthorLastName);
+                        AddBook();
 
                     }
                     else
@@ -152,7 +141,7 @@ namespace GL.Design
             firstName = Console.ReadLine();
             Console.Write(" Please enter your last name: ");
             lastName = Console.ReadLine();
-            Console.WriteLine("Enter your age: ");
+            Console.Write(" Enter your age: ");
             int age = int.Parse(Console.ReadLine());
             if (!_personService.Exists(firstName, lastName, age))
             {
@@ -172,7 +161,7 @@ namespace GL.Design
             string firstNameSignUp = Console.ReadLine();
             Console.Write(" Please enter your last name: ");
             string lastNameSignUp = Console.ReadLine();
-            Console.WriteLine("Enter your age: ");
+            Console.Write("Enter your age: ");
             int age = int.Parse(Console.ReadLine());
             if (_personService.Exists(firstNameSignUp, lastNameSignUp, age))
             {
@@ -249,6 +238,25 @@ namespace GL.Design
                     }
                 }
             }
+        }
+        
+        static void AddBook()
+        {
+            Console.Clear();
+            Console.WriteLine(" Add a Book");
+            Console.WriteLine(" --------------------------");
+            Console.Write(" Please enter the book's title:");
+            string newBookTitle = Console.ReadLine();
+            Console.Write(" Please enter the book's author's FIRST name: ");
+            string bookAuthorFirstName = Console.ReadLine();
+            Console.Write(" Please enter the book's author's LAST name: ");
+            string bookAuthorLastName = Console.ReadLine();
+            Console.WriteLine("Please enter the book's shelf: ");
+            string shelfName = Console.ReadLine();
+            _bookService.AddBook(newBookTitle,
+                shelfName,
+                bookAuthorFirstName,
+                bookAuthorLastName);
         }
         
         static bool SignUpValidation(string fName, string lName, int age)

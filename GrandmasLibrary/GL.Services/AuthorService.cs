@@ -7,45 +7,31 @@ namespace GL.Services
 {
     public class AuthorService
     {
-        private  LibraryContext _context;
+        private LibraryContext _context;
 
-        public AuthorService(LibraryContext context  )
+        public AuthorService(LibraryContext context)
         {
             _context = context;
         }
 
-        public  bool Exists(string fName, string lName)
+        public bool Exists(string fName, string lName)
         {
-            bool exist = false;
-            
-            var authors = _context.Authors.Select(c => $"{c.LastName},{c.FirstName}").ToList();
-            string name = $"{lName},{fName}";
-
-            foreach (var author in authors)
-            {
-                if (author.ToLower() == name.ToLower())
-                {
-                    exist = true;
-                }
-            }
-            
-            return exist;
+            return _context.Authors.Any(x => x.FirstName == fName && x.LastName == lName);
         }
 
-        public  void AddBookToAuthor(Book book, Author author)
+        public void AddBookToAuthor(Book book, Author author)
         {
             author.Books.Add(book);
             _context.SaveChanges();
-
         }
-        
-        public  void AddAuthor(string fNAme, string lName)
+
+        public void AddAuthor(string fName, string lName)
         {
-            Author author=new Author();
-            
-            author.FirstName = fNAme;
+            Author author = new Author();
+
+            author.FirstName = fName;
             author.LastName = lName;
-            
+
             _context.Authors.Add(author);
             _context.SaveChanges();
         }
@@ -53,12 +39,12 @@ namespace GL.Services
         public string ViewAllAuthors()
         {
             StringBuilder allAutors = new StringBuilder("Library has the following authors: \n");
-            
+
             var authors = _context.Authors.Select(c => $"{c.LastName}, {c.FirstName}").ToList();
 
             foreach (var author in authors)
             {
-                allAutors.Append(author + "\n") ;
+                allAutors.Append(author + "\n");
             }
 
             return allAutors.ToString();
@@ -67,30 +53,23 @@ namespace GL.Services
         public Author GetAuthor(string fName, string lName)
         {
             return _context.Authors
-                .Where(c => c.FirstName == fName)
-                .First(c => c.LastName == lName);
+                .First(c => c.FirstName == fName && c.LastName == lName);
         }
-        public void ChangeAuthorName(string currentFName,string currentLName, string newFName, string newLName)
+
+        public void ChangeAuthorName(string currentFName, string currentLName, string newFName, string newLName)
         {
-            Author author = _context.Authors
-                .Where(c => c.FirstName == currentFName)
-                .First(c => c.LastName == currentLName);
-            
+            Author author = GetAuthor(currentFName, currentLName);
+
             author.FirstName = newFName;
             author.LastName = newLName;
-            
+
             _context.SaveChanges();
         }
 
         public void DeleteAuthor(string fName, string lName)
         {
-            Author author = _context.Authors
-                .Where(c => c.FirstName == fName)
-                .First(c => c.LastName == lName);
-            
-            _context.Remove(author);
+            _context.Remove(GetAuthor(fName, lName));
             _context.SaveChanges();
         }
-        
     }
 }
