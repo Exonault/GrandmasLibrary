@@ -117,9 +117,17 @@ namespace GL.Design
                     {
                         Console.WriteLine("You need to log in for this use 1.");
                     }
+
                     break;
                 case "10":
-                    Draw();
+                    if (IsPersonLogIn())
+                    {
+                        Console.WriteLine(_personService.ViewAllPersonBooks(firstName,lastName));
+                    }
+                    else
+                    {
+                        Console.WriteLine("You need to log in for this use 1.");
+                    }
                     break;
                 case "0":
                     Environment.Exit(0);
@@ -143,7 +151,7 @@ namespace GL.Design
             Console.WriteLine(" 7. Add a Shelf");
             Console.WriteLine(" 8. Add a Book");
             Console.WriteLine(" 9. Return a Book");
-            Console.WriteLine(" 10. Show Menu");
+            Console.WriteLine(" 10. Show my Books");
             Console.WriteLine(" 0. Exit");
             Console.WriteLine();
             Console.Write("Please enter one of the numbers above: ");
