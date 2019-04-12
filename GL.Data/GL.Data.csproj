@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.2" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0-preview3.19128.7" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\GL.Helpers\GL.Helpers.csproj" />
+    <ProjectReference Include="..\GL.Model\GL.Model.csproj" />
+  </ItemGroup>
+
+</Project>

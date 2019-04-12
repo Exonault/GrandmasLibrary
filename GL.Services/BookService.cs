@@ -1,13 +1,14 @@
-using GL.Model.Context;
 using GL.Model.Model;
 using System.Linq;
 using System.Text;
+using GL.Data;
 
 namespace GL.Services
 {
     public class BookService
     {
         private LibraryContext _context;
+        
         private AuthorService _authorService;
         private ShelfService _shelfService;
         private PersonService _personService;

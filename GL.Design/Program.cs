@@ -1,15 +1,19 @@
 ﻿using System;
-using GL.Model.Context;
+using GL.Data;
 using GL.Services;
 
 namespace GL.Design
 {
     class Program
     {
-        private static AuthorService _authorService=new AuthorService(new LibraryContext());
-        private static ShelfService _shelfService=new ShelfService(new LibraryContext());
-        private static PersonService _personService= new PersonService(new LibraryContext());
-        private static BookService _bookService= new BookService(new LibraryContext());
+        private readonly LibraryContext _context = new LibraryContext();
+        
+        private readonly AuthorService _authorService=new AuthorService(_context);
+        private readonly ShelfService _shelfService=new ShelfService(_context);
+        private readonly PersonService _personService= new PersonService(_context);
+        private readonly BookService _bookService= new BookService(_context);
+        
+        
         static string firstName;
         static string lastName;
 

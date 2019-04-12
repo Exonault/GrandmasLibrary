@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace GL.Model.Migrations
+namespace GL.Data.Migrations
 {
     public partial class Initial : Migration
     {
@@ -50,7 +50,7 @@ namespace GL.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Book",
+                name: "Books",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -63,21 +63,21 @@ namespace GL.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Book", x => x.Id);
+                    table.PrimaryKey("PK_Books", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Book_Authors_AuthorId",
+                        name: "FK_Books_Authors_AuthorId",
                         column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Book_Persons_PersonId",
+                        name: "FK_Books_Persons_PersonId",
                         column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Book_Shelves_ShelfId",
+                        name: "FK_Books_Shelves_ShelfId",
                         column: x => x.ShelfId,
                         principalTable: "Shelves",
                         principalColumn: "Id",
@@ -85,25 +85,25 @@ namespace GL.Model.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_AuthorId",
-                table: "Book",
+                name: "IX_Books_AuthorId",
+                table: "Books",
                 column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_PersonId",
-                table: "Book",
+                name: "IX_Books_PersonId",
+                table: "Books",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Book_ShelfId",
-                table: "Book",
+                name: "IX_Books_ShelfId",
+                table: "Books",
                 column: "ShelfId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Book");
+                name: "Books");
 
             migrationBuilder.DropTable(
                 name: "Authors");

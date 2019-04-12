@@ -3,9 +3,9 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp2.1</TargetFramework>
     </PropertyGroup>
-
+    
     <ItemGroup>
-      <ProjectReference Include="..\GL.Model\GL.Model.csproj" />
+      <ProjectReference Include="..\GL.Contracts\GL.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

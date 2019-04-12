@@ -1,28 +1,33 @@
+using GL.Helpers;
 using GL.Model.Model;
-using GL.Model.Model.Contract;
 using Microsoft.EntityFrameworkCore;
 
-namespace GL.Model.Context
+
+namespace GL.Data
 {
     public class LibraryContext:DbContext
-    {        
-
+    {
         public LibraryContext()
-        {     
+        {
+            
         }
 
         public LibraryContext(DbContextOptions options):base(options)
-        {          
+        {
+            
         }
 
         public DbSet<Shelf> Shelves { get; set; }
+        
         public DbSet<Person> Persons { get; set; }
+        
         public DbSet<Author> Authors { get; set; }
+        
         public DbSet<Book> Books { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-         // optionsBuilder.UseSqlServer(Connection.ConnectionString);
+            optionsBuilder.UseSqlServer(Connection.ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +38,8 @@ namespace GL.Model.Context
                 .WithOne(b => b.Person);
             modelBuilder.Entity<Author>().HasMany(a => a.Books)
                 .WithOne(b => b.Author);
+            
+            
         }
     }
 }
