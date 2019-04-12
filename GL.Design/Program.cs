@@ -19,8 +19,9 @@ namespace GL.Design
 
         static void Main(string[] args)
         {
-            Draw();
+            
             while(true){
+            Draw(); 
             string selectNumber = Console.ReadLine();
             switch (selectNumber)
             {
@@ -107,6 +108,17 @@ namespace GL.Design
 
                     break;
                 case "9":
+                    if (IsPersonLogIn())
+                    {
+                        ReturnBook();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("You need to log in for this use 1.");
+                    }
+                    break;
+                case "10":
                     Draw();
                     break;
                 case "0":
@@ -130,7 +142,8 @@ namespace GL.Design
             Console.WriteLine(" 6. Show Books");
             Console.WriteLine(" 7. Add a Shelf");
             Console.WriteLine(" 8. Add a Book");
-            Console.WriteLine(" 9.Show Menu");
+            Console.WriteLine(" 9. Return a Book");
+            Console.WriteLine(" 10. Show Menu");
             Console.WriteLine(" 0. Exit");
             Console.WriteLine();
             Console.Write("Please enter one of the numbers above: ");
@@ -214,7 +227,37 @@ namespace GL.Design
                     ,lastName);
             }
         }
-
+        
+        static void ReturnBook()
+        {
+            Console.Clear();
+            Console.WriteLine(" Return a Book");
+            Console.WriteLine(" --------------------------");
+            Console.Write(" Please enter the book's title: ");
+            string bookTitle = Console.ReadLine();
+            Console.Write(" Please enter the book's author's FIRST name: ");
+            string bookAuthorFirstName = Console.ReadLine();
+            Console.Write(" Please enter the book's author's LAST name: ");
+            string bookAuthorLastName = Console.ReadLine();
+            Console.WriteLine($"Return the book {0} from {1} on shelf {2}"
+                ,bookTitle
+                , bookAuthorFirstName+bookAuthorLastName
+                ,_bookService.GetBookShelf(bookTitle
+                    ,bookAuthorFirstName
+                    ,bookAuthorLastName));
+            Console.WriteLine("If you want you can change the shelf. Do you want to do that? \n Yes/No");
+            string answer = Console.ReadLine();
+            if (answer == "Yes")
+            {
+                Console.Write("Please, enter the new shelf: ");
+                string newShelf = Console.ReadLine();
+                _bookService.ChangeShelf(bookTitle,bookAuthorFirstName,bookAuthorLastName,newShelf);
+                Console.WriteLine("Shelf changed.");
+            }
+            _bookService.PersonReturnsBook(bookTitle,bookAuthorFirstName,bookAuthorLastName);
+            Console.WriteLine("Book returned.");
+        }
+        
         static void AddShelf()
         {
             Console.Clear();
@@ -231,6 +274,7 @@ namespace GL.Design
                 if (!_shelfService.Exists(shelfName))
                 {
                     _shelfService.AddShelf(shelfName);
+                    Console.WriteLine("Shelf added.");
                 }
                 else
                 {
@@ -261,6 +305,7 @@ namespace GL.Design
                 shelfName,
                 bookAuthorFirstName,
                 bookAuthorLastName);
+            Console.WriteLine("Book added.");
         }
         
         static bool SignUpValidation(string fName, string lName, int age)
