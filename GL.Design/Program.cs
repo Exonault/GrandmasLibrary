@@ -6,12 +6,12 @@ namespace GL.Design
 {
     class Program
     {
-        private readonly LibraryContext _context = new LibraryContext();
+        private static LibraryContext _context = new LibraryContext();
         
-        private readonly AuthorService _authorService=new AuthorService(_context);
-        private readonly ShelfService _shelfService=new ShelfService(_context);
-        private readonly PersonService _personService= new PersonService(_context);
-        private readonly BookService _bookService= new BookService(_context);
+        private static AuthorService _authorService=new AuthorService(_context);
+        private static ShelfService _shelfService=new ShelfService(_context);
+        private static PersonService _personService= new PersonService(_context);
+        private static BookService _bookService= new BookService(_context);
         
         
         static string firstName;
